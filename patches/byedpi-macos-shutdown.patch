@@ -1,0 +1,16 @@
+--- a/proxy.c
++++ b/proxy.c
+@@ -45,7 +45,13 @@
+ int server_fd;
+ 
+ static void on_cancel(int sig) {
++    #ifdef __APPLE__
++    /* shutdown() on the listening socket does not reliably end the Darwin
++       event loop. _exit is async-signal-safe; the OS closes all descriptors. */
++    _exit(0);
++    #else
+     shutdown(server_fd, SHUT_RDWR);
++    #endif
+ }
+ 
+ 

@@ -1,0 +1,19 @@
+name: Build and test
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  macos:
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - name: Unit tests
+        run: ./scripts/test.sh
+      - name: Build local application
+        run: ./scripts/build.sh
+      - name: Verify signature
+        run: codesign --verify --deep --strict dist/Luma.app
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: Luma-local-build
+          path: dist/Luma-macOS-*.zip
