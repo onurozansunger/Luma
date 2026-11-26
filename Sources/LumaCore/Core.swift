@@ -17,7 +17,7 @@ public enum Product {
     #else
     public static let architecture = "x64"
     #endif
-    public static let version = "0.2.4"
+    public static let version = "0.2.5"
     public static let appID = "app.luma.mac"
     public static let agentID = "app.luma.agent"
     public static let gatewayID = "app.luma.gateway"

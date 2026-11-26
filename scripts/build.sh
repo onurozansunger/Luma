@@ -6,7 +6,14 @@ ROOT="$PWD"
 SDK="$(xcrun --show-sdk-path)"
 ARCH="$(uname -m)"
 SIGNING_IDENTITY="${LUMA_SIGNING_IDENTITY:--}"
-mkdir -p .build/vendor dist
+mkdir -p .build/vendor dist.noindex
+# Spotlight skips *.noindex folders, so only the installed app shows up in search.
+# dist stays a symlink so existing paths (CI, release_pack.py, docs) keep working.
+if [[ -d dist && ! -L dist ]]; then
+ find dist -mindepth 1 -maxdepth 1 -exec mv {} dist.noindex/ \;
+ rmdir dist
+fi
+ln -sfn dist.noindex dist
 BYE_ARCHIVE=.build/vendor/byedpi-0.17.3.tar.gz
 if [[ ! -f "$BYE_ARCHIVE" ]]; then curl -fLsS --retry 2 https://api.github.com/repos/hufrea/byedpi/tarball/v0.17.3 -o "$BYE_ARCHIVE"; fi
 printf '%s  %s\n' '0594a9b612490386436fa3474ba194a0433cd808bc3f278bcfa988dc32acd6d4' "$BYE_ARCHIVE" | shasum -a 256 -c -

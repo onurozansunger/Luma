@@ -6,7 +6,7 @@ Please report security issues privately to the repository maintainer through Git
 
 The SwiftUI app and proxy engine run as the logged-in user. Only the ServiceManagement gateway service needs root. It does not accept arbitrary executable paths, shell commands, PF text, destination proxies, or filesystem paths from XPC requests. The tunnel bytes are SHA-256-pinned inside the compiled helper and copied into root-owned storage before execution, so the helper does not execute a user-writable tunnel path. The caller is verified using Apple's code-signing requirement mechanism on the XPC connection; the helper derives the expected app identity from its containing signed bundle. The app also verifies the helper peer.
 
-Public releases must use Developer ID signing and notarization. Ad-hoc builds are intended for local development. Do not disable system protections to install the helper.
+GitHub releases are currently ad-hoc signed and not notarized; users approve the app once through System Settings → Privacy & Security → Open Anyway. Verify downloads against the release's `SHA256SUMS.txt`. Developer ID signing and notarization remain the goal for wider distribution (see `docs/DISTRIBUTION.md`). Do not disable Gatekeeper or SIP system-wide to install the app or the helper.
 
 PF changes are confined to `com.apple/luma`, reached through macOS's default `com.apple/*` anchor. The helper does not replace `/etc/pf.conf`, flush other anchors, or change the Mac's default route. Global IPv4 forwarding/redirect sysctls are temporarily changed and restored to recorded values. Concurrent networking software that also modifies those sysctls requires explicit compatibility testing; it is not supported by inference.
 

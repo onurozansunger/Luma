@@ -1,5 +1,6 @@
 .build/
-dist/
+dist
+dist.noindex/
 .DS_Store
 *.xcuserstate
 .build-logs/

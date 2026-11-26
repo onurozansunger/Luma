@@ -30,7 +30,7 @@ Bu paylaşım IPv4 içindir. PSN oturumu, iki yönlü Discord sesi, oyun bağlan
 
 ## Bu paketin durumu
 
-Yerel paket ad-hoc imzalıdır; Apple tarafından noter onayı verilmiş bir genel dağıtım değildir. Yayımlamadan önce dağıtım kimliğiyle imzalama, Apple noter onayı ve temiz cihaz testleri tamamlanmalıdır. Güvenlik uyarılarını kapatmak veya atlamak kurulum yöntemi değildir.
+GitHub sürümleri ad-hoc imzalıdır; Apple noter onayı yoktur. İlk açılışta macOS uyarı verir. Uygulamayı yalnızca bir kez **Sistem Ayarları → Gizlilik ve Güvenlik → Yine de Aç** ile açman yeterlidir (adımlar README’de). Gatekeeper’ı veya SIP’i sistem genelinde kapatma; buna gerek yoktur.
 
 ## Açma, kapatma ve yeniden bağlanma
 
